@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('anggotas', function (Blueprint $table) {
             $table->id();
+            $table->string('nik')->unique();
+            $table->string('nama');
+            $table->string('tingkat');
+            $table->string('ranting');                          
             $table->timestamps();
         });
     }
