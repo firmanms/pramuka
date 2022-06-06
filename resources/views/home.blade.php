@@ -26,7 +26,7 @@
   <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/></svg>
                                 </div>
                                 <div class="d-sm-none">
-                                    <h2 class="fw-extrabold h5"> Jumlah Siaga</h2>
+                                    <h2 class="fw-extrabold h5"> Jumlah Siagas</h2>
                                     <h3 class="mb-1">{{ number_format($getsiaga) }}</h3>
                                 </div>
                             </div>
