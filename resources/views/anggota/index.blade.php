@@ -158,6 +158,7 @@ function showProject(id)
 
                 $("#nik").html(anggota.nik);
                 $("#nama").html(anggota.nama);
+                $("#tingkat").html(anggota.tingkat);
                 $("#view-modal").modal('show');
 
             },
