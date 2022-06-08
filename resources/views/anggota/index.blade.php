@@ -31,13 +31,14 @@
                 <a href="{{ route('anggotas.create') }}" class="btn btn-success" style="width: 11%;">Tambah Anggota</a>
                 @endcan
 
-            <table class="table table-hover anggota_datatable">
+            <table class="table table-hover display nowrap anggota_datatable style="width:100%"">
                 <thead>
                     <tr>
                         <th class="border-gray-200">id</th>
                         <th class="border-gray-200">nik</th>
                         <th class="border-gray-200">nama</th>
-                        <th class="border-gray-200">tingkat</th>
+                        <th class="border-gray-200">golongan</th>
+                        <th class="border-gray-200">golongan - </th>
                         <th class="border-gray-200">ranting</th>
                         <th class="border-gray-200">Aksi</th>
                     </tr>
@@ -69,8 +70,50 @@
                     </tr>
                     <tr>
                         <td>tingkat</td><td>: <font id="tingkat"></font></td>
+                        
                     </tr>
                 </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link text-gray ms-auto" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal hide fade" id="view-modal-ubah">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="h6 modal-title">Ubah Anggota</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="javascript:void(0)" id="AnggotaForm" name="AnggotaForm" class="form-horizontal" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="id" id="eid">
+                    <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">NIK</label>
+                    <div class="col-sm-12">
+                    <input type="text" class="form-control" id="enik" name="nik" placeholder="NIK" maxlength="50" required="">
+                    </div>
+                    </div>  
+                    <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">Nama</label>
+                    <div class="col-sm-12">
+                    <input type="text" class="form-control" id="enama" name="nama" placeholder="Nama" maxlength="50" required="">
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <label class="col-sm-2 control-label">Tingkat</label>
+                    <div class="col-sm-12">
+                    <input type="text" class="form-control" id="etingkat" name="tingkat" placeholder="Tingkat" required="">
+                    </div>
+                    </div>
+                    <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary" id="btn-save">Simpan
+                    </button>
+                    </div>
+                    </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-link text-gray ms-auto" data-bs-dismiss="modal">Close</button>
@@ -83,16 +126,26 @@
 
 
     <script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
         $(function () {
           var table = $('.anggota_datatable').DataTable({
               processing: true,
               serverSide: true,
+              rowReorder: {
+            selector: 'td:nth-child(2)'
+        },
+        responsive: true,
               ajax: "{{ route('anggotas.index') }}",
               columns: [
                   {data: 'id', name: 'id'},
                   {data: 'nik', name: 'nik'},
                   {data: 'nama', name: 'nama'},
-                  {data: 'tingkat', name: 'tingkat'},
+                  {data: 'golongan_anggota', name: 'golongan_anggota'},
+                  {data: 'golongan_anggotab', name: 'golongan_anggotab'},
                   {data: 'ranting', name: 'ranting'},
                   {data: 'action', name: 'action', orderable: false, searchable: false},
               ]
@@ -103,11 +156,7 @@
 function hapus(e) {
     var url = '{{ route("anggotas.destroy", ":id") }}';
     url = url.replace(':id', e);
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+    
     Swal.fire({
         title: "Apakah Anda Yakin ?",
         text: "Data Yang Sudah Dihapus Tidak Bisa Dikembalikan!",
@@ -149,7 +198,7 @@ function showProject(id)
     {
         $("#name-info").html("");
         $("#description-info").html("");
-        let url =  "/pramuka/public/anggotas/" + id +"";
+        let url =   "/pramuka/public/anggotas/" + id +"";
         $.ajax({
             url: url,
             type: "GET",
@@ -158,7 +207,8 @@ function showProject(id)
 
                 $("#nik").html(anggota.nik);
                 $("#nama").html(anggota.nama);
-                $("#tingkat").html(anggota.tingkat);
+                $("#nama").val(anggota.nama);
+                $("#tingkat").html(anggota.golongan_anggota);
                 $("#view-modal").modal('show');
 
             },
@@ -167,5 +217,53 @@ function showProject(id)
             }
         });
     }
+
+    function ubah(id)
+    {
+        
+        let url =   "/pramuka/public/anggotas/" + id +"/edit";
+        $.ajax({
+            url: url,
+            type: "GET",
+            success: function(response) {
+                let anggota = response.anggota;
+
+                $("#eid").val(anggota.id);
+                $("#enik").val(anggota.nik);
+                $("#eama").val(anggota.nama);
+                $("#enama").val(anggota.nama);
+                $("#etingkat").val(anggota.golongan_anggota);
+                $("#view-modal-ubah").modal('show');
+
+            },
+            error: function(response) {
+                console.log(response.responseJSON)
+            }
+        });
+    }
+
+$('#AnggotaForm').submit(function(e) {
+e.preventDefault();
+var formData = new FormData(this);
+$.ajax({
+type:'POST',
+url: "{{ url('anggotas')}}",
+data: formData,
+cache:false,
+contentType: false,
+processData: false,
+success: (data) => {
+$("#view-modal-ubah").modal('hide');
+var oTable = $('.anggota_datatable').dataTable();
+oTable.fnDraw(false);
+$("#btn-save").html('Submit');
+$("#btn-save"). attr("disabled", false);
+},
+error: function(data){
+console.log(data);
+}
+});
+});
+    
 </script>
 @endsection

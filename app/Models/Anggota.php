@@ -9,6 +9,20 @@ class Anggota extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nik', 'nama','tingkat','ranting',
+        'nik',
+        'nama',
+        'jenis_kelamin',
+        'tempat_lahir',
+        'tgl_lahir',
+        'golongan_anggota',
+        'golongan_anggotab',
+        'basis',
+        'no_gudep',
+        'agama',
+        'goldar',
+        'alamat',
+        'ranting',
+        'nta',
+        'foto',
     ];
 }
