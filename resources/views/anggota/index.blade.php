@@ -69,7 +69,7 @@
                         <td>Nama</td><td>: <font id="nama"></font></td>
                     </tr>
                     <tr>
-                        <td>tingkat</td><td>: <font id="tingkat"></font></td>
+                        <td>Golongan</td><td>: <font id="golongan_anggota"></font></td>
                         
                     </tr>
                 </table>
@@ -106,7 +106,7 @@
                     <div class="form-group">
                     <label class="col-sm-2 control-label">Tingkat</label>
                     <div class="col-sm-12">
-                    <input type="text" class="form-control" id="etingkat" name="tingkat" placeholder="Tingkat" required="">
+                    <input type="text" class="form-control" id="egolongan_anggota" name="golongan_anggota" placeholder="golongan anggota" required="">
                     </div>
                     </div>
                     <div class="col-sm-offset-2 col-sm-10">
@@ -208,7 +208,7 @@ function showProject(id)
                 $("#nik").html(anggota.nik);
                 $("#nama").html(anggota.nama);
                 $("#nama").val(anggota.nama);
-                $("#tingkat").html(anggota.golongan_anggota);
+                $("#golongan_anggota").html(anggota.golongan_anggota);
                 $("#view-modal").modal('show');
 
             },
@@ -230,9 +230,8 @@ function showProject(id)
 
                 $("#eid").val(anggota.id);
                 $("#enik").val(anggota.nik);
-                $("#eama").val(anggota.nama);
                 $("#enama").val(anggota.nama);
-                $("#etingkat").val(anggota.golongan_anggota);
+                $("#egolongan_anggota").val(anggota.golongan_anggota);
                 $("#view-modal-ubah").modal('show');
 
             },
@@ -253,11 +252,15 @@ cache:false,
 contentType: false,
 processData: false,
 success: (data) => {
+    
 $("#view-modal-ubah").modal('hide');
 var oTable = $('.anggota_datatable').dataTable();
 oTable.fnDraw(false);
 $("#btn-save").html('Submit');
 $("#btn-save"). attr("disabled", false);
+
+                    
+
 },
 error: function(data){
 console.log(data);
