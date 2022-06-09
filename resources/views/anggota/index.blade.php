@@ -28,9 +28,9 @@
             </div>
             @endif
             @can('anggota-create')
-                <a href="{{ route('anggotas.create') }}" class="btn btn-success" style="width: 11%;">Tambah Anggota</a>
+            <a class="btn btn-success" onClick="add()" href="javascript:void(0)">Tambah Anggota</a>
                 @endcan
-
+<hr>
             <table class="table table-hover display nowrap anggota_datatable style="width:100%"">
                 <thead>
                     <tr>
@@ -52,6 +52,46 @@
         </div>
     </div>
 
+    <div class="modal hide fade" id="create-modal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="h6 modal-title">Tambah Anggota</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="javascript:void(0)" id="AnggotaForm" name="AnggotaForm" class="form-horizontal" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="id" id="eid">
+                        <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">NIK</label>
+                        <div class="col-sm-12">
+                        <input type="text" class="form-control" id="enik" name="nik" placeholder="NIK" maxlength="50" required="">
+                        </div>
+                        </div>
+                        <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">Nama</label>
+                        <div class="col-sm-12">
+                        <input type="text" class="form-control" id="enama" name="nama" placeholder="Nama" maxlength="50" required="">
+                        </div>
+                        </div>
+                        <div class="form-group">
+                        <label class="col-sm-2 control-label">Tingkat</label>
+                        <div class="col-sm-12">
+                        <input type="text" class="form-control" id="egolongan_anggota" name="golongan_anggota" placeholder="golongan anggota" required="">
+                        </div>
+                        </div>
+                        <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary" id="btn-save">Simpan
+                        </button>
+                        </div>
+                        </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link text-gray ms-auto" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <div class="modal hide fade" id="view-modal">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -70,7 +110,7 @@
                     </tr>
                     <tr>
                         <td>Golongan</td><td>: <font id="golongan_anggota"></font></td>
-                        
+
                     </tr>
                 </table>
             </div>
@@ -85,7 +125,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="h6 modal-title">Ubah Anggota</h2>
+                <h2 class="h6 modal-title">Form Anggota</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -96,11 +136,44 @@
                     <div class="col-sm-12">
                     <input type="text" class="form-control" id="enik" name="nik" placeholder="NIK" maxlength="50" required="">
                     </div>
-                    </div>  
+                    </div>
                     <div class="form-group">
                     <label for="name" class="col-sm-2 control-label">Nama</label>
                     <div class="col-sm-12">
                     <input type="text" class="form-control" id="enama" name="nama" placeholder="Nama" maxlength="50" required="">
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <label for="name" class="col-sm-6 control-label">Jenis Kelamin</label>
+                    <div class="col-sm-12">
+                    <select class="form-control" id="ejinis_kelamin" name="jenis_kelamin">
+                        <option value="LAKI-LAKI">LAKI-LAKI</option>
+                        <option value="PEREMPUAN">PEREMPUAN</option>
+                    </select>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <label for="name" class="col-sm-6 control-label">Tempat Lahir</label>
+                    <div class="col-sm-12">
+                    <input type="text" class="form-control" id="etempat_lahir" name="tempat_lahir" placeholder="Bandung" maxlength="50" required="">
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <label for="name" class="col-sm-6 control-label">Tanggal Lahir</label>
+                    <div class="col-sm-12">
+                    <input type="text" class="form-control" id="etanggal_lahir" name="tanggal_lahir" placeholder="2000-01-31" maxlength="50" required="">
+                    </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-sm-6 control-label">Golongan</label>
+                        <div class="col-sm-12">
+                        <select class="form-control" id="egolongan_anggota" name="golongan_anggota">
+                            <option value="SIAGA">SIAGA</option>
+                            <option value="PENGGALANG">PENGGALANG</option>
+                            <option value="PENEGAK">PENEGAK</option>
+                            <option value="PANDEGA">PANDEGA</option>
+                            <option value="PEMBINA">PEMBINA</option>
+                    </select>
                     </div>
                     </div>
                     <div class="form-group">
@@ -153,10 +226,18 @@
         });
       </script>
 <script>
+
+function add(){
+$('#CompanyForm').trigger("reset");
+$('#CompanyModal').html("Add Company");
+$('#view-modal-ubah').modal('show');
+$('#id').val('');
+}
+
 function hapus(e) {
     var url = '{{ route("anggotas.destroy", ":id") }}';
     url = url.replace(':id', e);
-    
+
     Swal.fire({
         title: "Apakah Anda Yakin ?",
         text: "Data Yang Sudah Dihapus Tidak Bisa Dikembalikan!",
@@ -220,7 +301,7 @@ function showProject(id)
 
     function ubah(id)
     {
-        
+
         let url =   "/pramuka/public/anggotas/" + id +"/edit";
         $.ajax({
             url: url,
@@ -252,14 +333,14 @@ cache:false,
 contentType: false,
 processData: false,
 success: (data) => {
-    
+
 $("#view-modal-ubah").modal('hide');
 var oTable = $('.anggota_datatable').dataTable();
 oTable.fnDraw(false);
 $("#btn-save").html('Submit');
 $("#btn-save"). attr("disabled", false);
 
-                    
+
 
 },
 error: function(data){
@@ -267,6 +348,6 @@ console.log(data);
 }
 });
 });
-    
+
 </script>
 @endsection
