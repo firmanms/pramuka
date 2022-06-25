@@ -23,6 +23,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/', [App\Http\Controllers\DashController::class, 'index'])->name('/');
+Route::get('/kwartir', [App\Http\Controllers\DashController::class, 'kwartir'])->name('kwartir');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware('auth')->group(function () {
@@ -38,4 +40,9 @@ Route::middleware('auth')->group(function () {
     Route::get('importExportView', [MyController::class, 'importExportView']);
     Route::get('export', [AnggotaController::class, 'export'])->name('export');
     Route::post('import', [AnggotaController::class, 'import'])->name('import');
+    //Route::post('destroyall', [AnggotaController::class, 'destroyall'])->name('destroyall');
+//     Route::delete('/anggotas/{ranting}', [AnggotaController::class, 'destroyall'])
+//   ->name('anggotas.destroyall'); 
+Route::get('/anggotas/{id}/destroyall', [AnggotaController::class, 'destroyall'])->name('anggotas.destroyall');
+Route::get('/anggotas/resume/{id}', [AnggotaController::class, 'resume'])->name('anggotas.resume');
 });

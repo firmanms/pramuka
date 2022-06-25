@@ -26,7 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         $kondisi= Auth::user()->name;
-        if ($kondisi=='Kwarcab'){
+        if ($kondisi=='KABUPATEN'){
         $getsiaga = Anggota::where('golongan_anggota','=','Siaga')->count();
         $getpenggalang = Anggota::where('golongan_anggota','=','Penggalang')->count();
         $getpenegak = Anggota::where('golongan_anggota','=','Penegak')->count();

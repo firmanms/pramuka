@@ -37,8 +37,8 @@ class AnggotasImport implements ToModel, WithHeadingRow
             'goldar'    => $row['goldar'],
             'alamat'    => $row['alamat'],
             'ranting'    => $row['ranting'],
-            'nta'    => $row['nta'], 
-            'foto'    => $row['foto'],
+            // 'nta'    => $row['nta'], 
+            // 'foto'    => $row['foto'],
         ]);
     }
 }
