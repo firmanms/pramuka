@@ -61,17 +61,17 @@ body {
     <!--    <td>: {{ Auth::user()->email ?? '' }}</td>-->
     <!--</tr>-->
     <tr>
-        <td>Tingkat</td>
+        <td>Golongan</td>
         <td>: {{ $profil->golongan_anggota ?? '' }}</td>
     </tr>
     <tr>
-        <td>Golongan</td>
+        <td>Tingkat</td>
         <td>: {{ $profil->golongan_anggotab ?? '' }}</td>
     </tr>
-    <tr>
-        <td>Jabatan</td>
-        <td>: {{ $profil->jab ?? '' }}</td>
-    </tr>
+    <!--<tr>-->
+    <!--    <td>Jabatan</td>-->
+    <!--    <td>: {{ $profil->jab ?? '' }}</td>-->
+    <!--</tr>-->
     <tr>
         <td>No Gugus Depan</td>
         <td>: {{ $profil->no_gudep ?? '' }}</td>
@@ -96,6 +96,7 @@ body {
                         $a="$profil->foto";
                     }
                     ?>
+                    <br><br><br>
 <table>
     <tr>
         <td width="50%" ><img src="{{ url($a) ?? '' }}" height="140" width="100" alt="" /></td>

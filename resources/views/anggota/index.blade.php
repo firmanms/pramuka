@@ -47,7 +47,7 @@
                         <th class="border-gray-200">nik</th>
                         <th class="border-gray-200">nama</th>
                         <th class="border-gray-200">golongan</th>
-                        <th class="border-gray-200">golongan - </th>
+                        <th class="border-gray-200">tingkatan</th>
                         <th class="border-gray-200">ranting</th>
                         <th class="border-gray-200">Aksi</th>
                     </tr>
@@ -91,7 +91,7 @@
                         <td>Golongan</td><td>: <font id="golongan_anggota"></font></td>
                     </tr>
                     <tr>
-                        <td>Golongan-</td><td>: <font id="golongan_anggotab"></font></td>
+                        <td>Tingkatan</td><td>: <font id="golongan_anggotab"></font></td>
                     </tr>
                     <tr>
                         <td>Basis</td><td>: <font id="basis"></font></td>
@@ -128,7 +128,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="h6 modal-title">Form Anggota</h2>
+                <h2 class="h6 modal-title">Form Ubah Anggota</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -180,9 +180,10 @@
                     </div>
                     </div>
                     <div class="form-group">
-                        <label for="name" class="col-sm-6 control-label">Golongan-</label>
+                        <label for="name" class="col-sm-6 control-label">Tingkatan</label>
                         <div class="col-sm-12">
                         <select class="form-control" id="egolongan_anggotab" name="golongan_anggotab">
+                            <option  value="-">-</option>
                             <option  value="MULA">Mula</option>
                         <option  value="BANTU">Bantu</option>
                         <option  value="TATA">Tata</option>
